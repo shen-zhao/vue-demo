@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Vue.extend</title>
+</head>
+<body>
+
+<div id="mount-point"></div>
+
+<script src="https://cdn.jsdelivr.net/npm/vue"></script>
+<script>
+    /*
+    Vue.extend(option)
+    🙂 参数  
+      {object} option
+    🙂 返回
+      {function} 返回一个能创建“子类”实例的构造器
+    🙂 用法
+        使用基础 Vue 构造器，创建一个“子类”。参数是一个包含组件选项的对象。
+      ✨ data 选项是特例，需要注意 - 在 Vue.extend() 中它必须是函数
+    🌰 
+    */
+    
+    var Profile = Vue.extend({
+        template: '<div><p>姓名：{{name}}</p><p>年龄：{{age}}</p><p>心情：{{mood}}</p></div>',
+        //template模板有且只能有一个根节点
+        data() {
+            return {
+                name: 'shenzhao',
+                age: 16,
+                mood: '😆'
+            }
+        }
+    });
+
+    //实例化创建子类，并挂载DOM
+    new Profile().$mount('#mount-point');
+
+</script>
+</body>
+</html>

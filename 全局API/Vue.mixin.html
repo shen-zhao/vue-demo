@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Vue.mixin</title>
+</head>
+<body>
+
+
+<script src="https://cdn.jsdelivr.net/npm/vue"></script>
+<script>
+    /*
+    Vue.mixin(mixin) 全局混入   ✊ 理解同$mixin
+    🙂 参数
+      {object} mixin
+    ✨ 全局注册一个混入，影响注册之后所有创建的每个 Vue 实例。
+      插件作者可以使用混入，向组件注入自定义的行为。不推荐在应用代码中使用。
+    🌰
+      如下
+
+    🎈 谨慎使用全局混入对象，因为会影响到每个单独创建的 Vue 实例 (包括第三方模板)。
+      大多数情况下，只应当应用于自定义选项，就像上面示例一样。
+      也可以将其用作 Plugins 以避免产生重复应用
+
+    🤔 个人总结
+      mixin, 混入的意思, 在vue中可以认为是与vue的选项对象合并在一起, 
+      相同的选项: 比如created, 都会执行, mixin的先于target执行
+    */
+
+    Vue.mixin({
+        created() {
+            const myOption = this.$options.option;
+            if(myOption) {
+                console.log(myOption);
+            }
+        }
+    });
+
+
+    //vue实例中的自定义选项，统一放入vm.$options里
+    new Vue({
+        option: 'hello 你好',
+        created() {
+            console.log('target')
+        }
+    });
+
+    //🍅     hello 你好
+    //       target
+</script>
+</body>
+</html>
