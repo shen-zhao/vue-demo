@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>el</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+      }
+      .box {
+        background: pink;
+        height: 600px;
+      }
+      .loading {
+        width: 100px;
+        height: 100px;
+        border-radius: 5px;
+        background: rgba(0,0,0,0.5);
+        position: fixed;
+        left: 50%;
+        top: 50%;
+        margin-left: -50px;
+        margin-top: -50px;
+      }
+    </style>
+</head>
+<body>
+  <div id="app"></div>
+<script src="https://cdn.jsdelivr.net/npm/vue"></script>
+<script>
+    /*
+    el
+
+    🙂 类型
+      String | HTMLElement
+    ⏰ 限制
+      只在由 new 创建的实例中遵守。
+    🍎 提供一个页面上已经存在的DOM元素作为Vue实例的挂载目标,
+       可以使CSS选择器(可能用了querySelect/querySelectAll),
+       可以是一个 HTMLElement 实例。(原生DOM对象)
+
+       在实例挂载之后，元素可以用 vm.$el 访问。
+
+       如果这个选项在实例化时有作用，实例将立即进入编译过程，否则，需要显式调用 vm.$mount() 手动开启编译。
+    */
+
+    //⏰ 根据element loading原理 写一个简单的loading, 主要学习el、Vue.extend() 
+    //    以及给Vue原型添加添加全局方法($loading)和给子类实例添加方法(close)
+    //    简单的了解了如何给Vue扩展插件，操作子类实例
+
+    var Loading = Vue.extend({
+      el: document.createElement('div'),
+      data() {
+        return {
+          text: '加载中···',
+          visible: false
+        }
+      },
+      template: '<div class="loading" v-if="visible">{{text}}</div>',
+      methods: {
+        
+      }
+    })
+
+    Loading.prototype.close = function() {
+      this.$el.parentNode.removeChild(this.$el);
+      this.$destroy();
+    }
+
+    function loading() {
+      var instance = new Loading();
+      Vue.nextTick(() => {
+        instance.visible = true;
+      });
+      var parent = document.body;
+      parent.appendChild(instance.$el);
+      return instance;
+    }
+
+    Vue.prototype.$loading = loading;
+
+    new Vue({
+      el: '#app',
+      template: '<div class="box" @click="open"></div>',
+      methods: {
+        open() {
+          var haha = this.$loading();
+          setTimeout(function() {
+            haha.close()
+          }, 3000);
+        }
+      }
+    })
+</script>
+</body>
+</html>

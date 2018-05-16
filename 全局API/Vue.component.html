@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Vue.component</title>
+</head>
+<body>
+
+<div id="mount-point"></div>
+
+<script src="https://cdn.jsdelivr.net/npm/vue"></script>
+<script>
+    /*
+    Vue.component(option)
+    🙂 参数  
+      {string} id
+      {Function | Object} [definition](定义, 包含选项)
+    🙂 返回
+      组件构造器
+    🙂 用法
+        注册或获取全局组件。注册还会自动使用给定的id设置组件的名称
+    🍎 创建全局组件, 需要Vue.extend返回的构造器, 传入选项对象会自动调用Vue.extend,
+       同组件内components选项
+       components: {
+           //组件名驼峰, 组件<my-component>
+           myComponent: myComponent (Vue.extend返回的构造器或单文件)
+       }
+    🌰 
+    */
+    // 注册组件，传入一个扩展过的构造器
+    Vue.component('my-component', Vue.extend({ /* ... */ }))
+
+    // 注册组件，传入一个选项对象 (自动调用 Vue.extend)
+    Vue.component('my-component', { /* ... */ })
+
+    // 获取注册的组件 (始终返回构造器)
+    var MyComponent = Vue.component('my-component')
+
+</script>
+</body>
+</html>
