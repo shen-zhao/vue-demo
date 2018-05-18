@@ -19,6 +19,15 @@
       {Function} [definition](定义, 包含选项)
     🙂 用法
         注册或获取全局过滤器。
+        过滤器用法：
+        Vue.js 允许你自定义过滤器，可被用于一些常见的文本格式化。
+        过滤器可以用在两个地方：双花括号插值和 v-bind 表达式 (后者从 2.1.0+ 开始支持)。
+        过滤器应该被添加在 JavaScript 表达式的尾部，由“管道”符号指示：
+        <!-- 在双花括号中 -->
+        {{ message | capitalize }}
+
+        <!-- 在 `v-bind` 中 -->
+        <div v-bind:id="rawId | formatId"></div>
     🌰 
         // 注册
         Vue.filter('my-filter', function (value) {
@@ -28,6 +37,14 @@
         // getter，返回已注册的过滤器
         var myFilter = Vue.filter('my-filter')
     */
+
+
+    Vue.filter('capitalize', function (value) {
+        if (!value) return ''
+        value = value.toString()
+        return value.charAt(0).toUpperCase() + value.slice(1)
+    })
+
    
 
 </script>
