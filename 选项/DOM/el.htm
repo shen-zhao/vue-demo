@@ -94,6 +94,26 @@
         }
       }
     })
+
+    //创建style标签
+    let Style = Vue.extend({
+        el: document.createElement('div'),
+        template: '<style>.mint-header,.mint-button--primary {background-color:{{baseColor}}} .mint-navbar .mint-tab-item.is-selected {border-bottom: 3px solid {{baseColor}};color: {{baseColor}};}</style>',
+        data() {
+          return {
+            baseColor: 'red'
+          }
+        },
+        methods: {
+
+        }
+    });
+
+    let style = new Style();
+
+    console.log(style)
+
+    document.head.appendChild(style.$el);
 </script>
 </body>
 </html>

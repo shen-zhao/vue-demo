@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Vue.delete</title>
+</head>
+<body>
+
+<div id="mount-point"></div>
+
+<script src="https://cdn.jsdelivr.net/npm/vue"></script>
+<script>
+    /*
+    Vue.delete(target, key) 删除对象的属性。如果对象是响应式的，确保删除能触发更新视图
+    🙂 参数  
+      {Object | Array} target
+      {string | number} key
+    🍎 仅在 2.2.0+ 版本中支持 Array + index 用法。
+
+    🙂 用法
+        删除对象的属性。如果对象是响应式的，确保删除能触发更新视图。
+        这个方法主要用于避开 Vue 不能检测到属性被删除的限制，但是你应该很少会使用它。
+    
+    
+    🌰 
+    */
+
+    let template = '<div><input v-model="messages.text"><span>{{messages.text}}</span></div>';
+
+    let render = Vue.compile(template);
+
+    let Vm = new Vue({
+        el: '#mount-point',
+        data: {
+            messages: {
+                
+            }
+        },
+        render: render.render
+    })
+
+    Vue.set(Vm.messages, 'text', 'hello world!');
+
+</script>
+</body>
+</html>

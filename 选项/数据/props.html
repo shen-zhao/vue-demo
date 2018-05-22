@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>props</title>
+</head>
+<body>
+
+<div id="mount-point"></div>
+
+<script src="https://cdn.jsdelivr.net/npm/vue"></script>
+<script>
+    /*
+    🙂 类型  
+       Array<string> | Object
+    🙂 详细
+        props 可以是数组或对象，用于接收来自父组件的数据。
+        props 可以是简单的数组，或者使用对象作为替代，对象允许配置高级选项，如类型检测、自定义校验和设置默认值。
+
+    🍎 注意，如果你为 data 属性使用了箭头函数，则 this 不会指向这个组件的实例，
+        不过你仍然可以将其实例作为函数的第一个参数来访问。
+        data: vm => ({ a: vm.myProp })
+    🌰 
+    */
+   // 简单语法
+    Vue.component('props-demo-simple', {
+        props: ['size', 'myMessage']
+    })
+
+    // 对象语法，提供校验
+    Vue.component('props-demo-advanced', {
+        props: {
+            // 检测类型
+            height: Number,
+            // 检测类型 + 其他验证
+            age: {
+                type: Number,
+                default: 0,
+                required: true,
+                validator: function (value) {
+                    return value >= 0
+                }
+            }
+        }
+    })
+
+</script>
+</body>
+</html>

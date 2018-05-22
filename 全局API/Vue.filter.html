@@ -45,6 +45,15 @@
         return value.charAt(0).toUpperCase() + value.slice(1)
     })
 
+
+    new Vue({
+        el: '#mount-point',
+        data: {
+            message: 'hello world!'
+        },
+        template: '<div>{{message | capitalize}}</div>'
+    });
+
    
 
 </script>
