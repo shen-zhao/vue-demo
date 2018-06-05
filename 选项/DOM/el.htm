@@ -82,7 +82,7 @@
 
     Vue.prototype.$loading = loading;
 
-    new Vue({
+    let VM = new Vue({
       el: '#app',
       template: '<div class="box" @click="open"></div>',
       methods: {
@@ -95,6 +95,8 @@
       }
     })
 
+    console.log(VM);
+
     //创建style标签
     let Style = Vue.extend({
         el: document.createElement('div'),
@@ -104,8 +106,21 @@
             baseColor: 'red'
           }
         },
+        created() {
+          let n = 0;
+          let that = this;
+          let timer =  setInterval(function() {
+            n++;
+            that.change(n)
+          }, 1000)
+          if(n > 100) {
+            clearInterval(timer);
+          }
+        },
         methods: {
-
+          change(n) {
+            this.$data.baseColor = 'yellow' + n;
+          }
         }
     });
 
