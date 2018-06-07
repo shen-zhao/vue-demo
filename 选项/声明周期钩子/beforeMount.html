@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>beforeMount</title>
+</head>
+<body>
+
+<div id="mount-point"></div>
+
+<script src="https://cdn.jsdelivr.net/npm/vue"></script>
+<script>
+    /*
+    beforeMount
+    🙂 类型  
+      {Function}
+    🙂 详情
+      在挂载开始之前被调用：相关的 render 函数首次被调用。
+    ⏰ 注意：该钩子在服务器端渲染期间不被调用。
+    🌰 
+    */
+
+    new Vue({
+        el: '#mount-point',
+        data: {
+            message: ''
+        },
+        created() {
+            console.log('实例创建完成');
+            console.log(this.$el);  //此时组件未挂载, $el属性不可见
+        },
+        beforeMount() {
+            console.log('开始挂载之前');  
+            console.log(this.$el);  //此时组件未挂载, $el属性可见
+        }
+    });
+
+    /*总结
+        与created对比，  created是实例创建完成并实现数据的观察与绑定之后立即执行，此时没有开始挂载相关的处理，el也是不可见的
+
+        而beforeMount是已经开始着手挂载的事宜，准备工作已经做好，el已经可见，只是还未进行真正挂载的逻辑
+    */
+   
+
+</script>
+</body>
+</html>

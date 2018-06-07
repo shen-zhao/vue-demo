@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>inheritAttrs</title>
+</head>
+<body>
+
+<div id="mount-point"></div>
+
+<script src="https://cdn.jsdelivr.net/npm/vue"></script>
+<script>
+    /*
+    inheritAttrs
+    🙂 类型  
+      {boolean}
+    🙂 默认值
+       true
+    🙂 详情
+        默认情况下父作用域的不被认作 props 的属性绑定 (attribute bindings) 将会“回退”且作为普通的 HTML 特性应用在子组件的根元素上。
+        当撰写包裹一个目标元素或另一个组件的组件时，这可能不会总是符合预期行为。
+        通过设置 inheritAttrs 到 false，这些默认行为将会被去掉。
+        而通过 (同样是 2.4 新增的) 实例属性 $attrs 可以让这些特性生效，且可以通过 v-bind 显性的绑定到非根元素上。
+    
+    🌰 
+    */
+    //如果你不希望组件的根元素继承特性，你可以设置在组件的选项中设置 inheritAttrs: false。例如：
+
+    Vue.component('my-component', {
+        inheritAttrs: false,
+        // ...
+    })
+
+
+
+    //这尤其适合配合实例的 $attrs 属性使用，该属性包含了传递给一个组件的特性名和特性值，例如：
+    /*
+    {
+        class: 'username-input',
+        placeholder: 'Enter your username'
+    }
+    */
+    //有了 inheritAttrs: false 和 $attrs，你就可以手动决定这些特性会被赋予哪个元素。在撰写基础组件的时候是常会用到的：
+    //子组件
+    Vue.component('base-input', {
+        inheritAttrs: false,
+        props: ['label', 'value'],
+        template: `
+            <label>
+            {{ label }}
+            <input
+                v-bind="$attrs"
+                v-bind:value="value"
+                v-on:input="$emit('input', $event.target.value)"
+            >
+            </label>
+        `
+    })
+    //在一个实例中调用子组件并传入属性
+    new Vue({
+        el: '#mount-point',
+        component: ['base-input'],
+        data: {
+            form: {
+                class: 'username-input',
+                placeholder: 'Enter your username'
+            }
+        },
+        template: '<div><base-input v-bind="form"><div>'
+    });
+
+    //这个模式允许你在使用基础组件的时候更像是使用原始的 HTML 元素，而不会担心哪个元素是真正的根元素：
+    /*
+    渲染结构
+    <base-input
+        v-model="username"
+        class="username-input"
+        placeholder="Enter your username"
+    ></base-input>
+    */
+
+    /*🤔 个人总结，调用组件时，组件上添加的属性如果如果不是以prop形式接收，他会默认会添加到根元素上，但是这可能不是我们想要的结果。
+        我们想把他添加到组件中的某个元素上，这时候我们就要关闭默认的接受行为，即inheritAttrs设置false,然后结合实例属性$attr把属性添加到目标组件或元素上
+    */
+</script>
+</body>
+</html>

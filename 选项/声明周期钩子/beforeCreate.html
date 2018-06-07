@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>beforeCreate</title>
+</head>
+<body>
+
+<div id="mount-point"></div>
+
+<script src="https://cdn.jsdelivr.net/npm/vue"></script>
+<script>
+    /*
+    beforeCreate
+    🙂 类型  
+      {Function}
+    🙂 详情
+      在实例初始化之后，数据观测 (data observer) 和 event/watcher 事件配置之前被调用。
+    🌰 
+    */
+
+    new Vue({
+        data: {
+            message: '数据观测加上了'
+        },
+        beforeCreate() {
+            console.log(this);
+            let message = this.message || '数据观测没加上';
+            console.log(message);
+        },
+        created() {
+            console.log('现在加上了');
+        }
+    });
+
+    /*总结
+        beforeCreate钩子执行时  $data、_data都没有绑定，也没有绑定观察者，所以访问不到实例数据，但是实例已经创建
+    */
+   
+
+</script>
+</body>
+</html>

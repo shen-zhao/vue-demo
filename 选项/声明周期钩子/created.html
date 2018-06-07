@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>created</title>
+</head>
+<body>
+
+<div id="mount-point"></div>
+
+<script src="https://cdn.jsdelivr.net/npm/vue"></script>
+<script>
+    /*
+    created
+    🙂 类型  
+      {Function}
+    🙂 详情
+      在实例创建完成后被立即调用。
+      在这一步，实例已完成以下的配置：数据观测 (data observer)，属性和方法的运算，watch/event 事件回调。
+      然而，挂载阶段还没开始，$el 属性目前不可见。
+    🌰 
+    */
+
+    new Vue({
+        el: '#mount-point',
+        data: {
+            message: '数据观测加上了'
+        },
+        beforeCreate() {
+            console.log(this);
+            let message = this.message || '数据观测没加上';
+            console.log(message);
+        },
+        created() {
+            console.log(this.message);
+
+            console.log(this.$el);  //此时组件未挂在, $el属性不可见
+        }
+    });
+
+    /*总结
+        实例创建之后立即执行，在挂在之前执行，也在beforeMount之前执行
+    */
+   
+
+</script>
+</body>
+</html>

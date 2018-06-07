@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>is</title>
+</head>
+<body>
+
+<div id="mount-point"></div>
+
+<script src="https://cdn.jsdelivr.net/npm/vue"></script>
+<script>
+    /*
+    is    
+    🙂 类型  
+      {string | object(组件的选项对象)}
+    🙂 详情
+      由于数据更改导致的虚拟 DOM 重新渲染和打补丁，在这之后会调用该钩子。
+        当这个钩子被调用时，组件 DOM 已经更新，所以你现在可以执行依赖于 DOM 的操作。
+        然而在大多数情况下，你应该避免在此期间更改状态。
+        如果要相应状态改变，通常最好使用计算属性或 watcher 取而代之。
+    ⏰ 
+    🌰 
+    */
+
+    var component1 = Vue.extend({
+        name: 'component1',
+        template: '<h1>component1</h1>'
+    });
+    var component2 = Vue.extend({
+        name: 'component2',
+        template: '<h2>component2</h2>'
+    });
+    var component3 = Vue.extend({
+        name: 'component3',
+        template: '<h3>component3</h3>'
+    });
+
+    new Vue({
+        el: '#mount-point',
+        data: {
+            view: 'component1'
+        },
+        template: '<div>'
+            + '<button @click="cut(component1)">component1</button>'
+            + '<button @click="cut(component2)">component2</button>'
+            + '<button @click="cut(component3)">component3</button>'
+            + '<component v-bind:is="view"></component>'
+            + '</div>',
+        components: {
+            component1,
+            component2,
+            component3
+        },
+        methods: {
+            cut(com) {
+                this.view = com;
+            }
+        }
+    });
+   
+
+</script>
+</body>
+</html>

@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>mounted</title>
+</head>
+<body>
+
+<div id="mount-point"></div>
+
+<script src="https://cdn.jsdelivr.net/npm/vue"></script>
+<script>
+    /*
+    mounted
+    🙂 类型  
+      {Function}
+    🙂 详情
+      el 被新创建的 vm.$el 替换，并挂载到实例上去之后调用该钩子。
+      如果 root 实例挂载了一个文档内元素，当 mounted 被调用时 vm.$el 也在文档内。
+    ⏰ 注意 mounted 不会承诺所有的子组件也都一起被挂载。
+        如果你希望等到整个视图都渲染完毕，可以用 vm.$nextTick 替换掉 mounted：
+        mounted: function () {
+            this.$nextTick(function () {
+                // Code that will run only after the
+                // entire view has been rendered
+            })
+        }
+
+        该钩子在服务器端渲染期间不被调用。
+    🌰 
+    */
+
+    new Vue({
+        el: '#mount-point',
+        data: {
+            message: ''
+        },
+        mounted() {
+            console.log(this.$el);
+        },
+        template: '<input name="name" placeholder="请输入">'
+    });
+
+    /*总结
+        完成挂载后执行该钩子，如果el是文档元素，vm.$el为模板渲染的结构替换el并插入的文档中
+    */
+   
+
+</script>
+</body>
+</html>
