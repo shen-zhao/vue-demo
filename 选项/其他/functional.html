@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>functional</title>
+</head>
+<body>
+
+<div id="mount-point"></div>
+
+<script src="https://cdn.jsdelivr.net/npm/vue"></script>
+<script>
+    /*
+    functional
+    🙂 类型  
+      {boolean}
+    🎈 限制
+        这个选项只在完整构建版本中的浏览器内编译时可用。
+    🙂 详情
+        使组件无状态 (没有 data ) 和无实例 (没有 this 上下文)。
+        他们用一个简单的 render 函数返回虚拟节点使他们更容易渲染。
+    
+        函数式组件
+        之前创建的锚点标题组件是比较简单，没有管理或者监听任何传递给他的状态，也没有生命周期方法。它只是一个接收参数的函数。
+        在这个例子中，我们标记组件为 functional，这意味它是无状态 (没有响应式数据)，无实例 (没有 this 上下文)。
+        一个 函数式组件 就像这样：
+    🌰 
+    */
+    //函数式
+    Vue.component('my-component', {
+        functional: true,
+        // Props 可选
+        props: {
+            // ...
+        },
+        // 为了弥补缺少的实例
+        // 提供第二个参数作为上下文
+        render: function (createElement, context) {
+            // ...
+        }
+    })
+    /*⏰ 
+        注意：在 2.3.0 之前的版本中，如果一个函数式组件想要接受 props，则 props 选项是必须的。
+        在 2.3.0 或以上的版本中，你可以省略 props 选项，所有组件上的属性都会被自动解析为 props。
+    */
+
+    //具体文档参考https://cn.vuejs.org/v2/guide/render-function.html#%E5%87%BD%E6%95%B0%E5%BC%8F%E7%BB%84%E4%BB%B6
+</script>
+</body>
+</html>

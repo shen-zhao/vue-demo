@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>delimiters</title>
+</head>
+<body>
+
+<div id="mount-point"></div>
+
+<script src="https://cdn.jsdelivr.net/npm/vue"></script>
+<script>
+    /*
+    delimiters
+    🙂 类型  
+      {Array<string>}
+    🙂 默认值
+       ["{{", "}}"]
+    🎈 限制
+        这个选项只在完整构建版本中的浏览器内编译时可用。
+    🙂 详情
+        改变纯文本插入分隔符。
+    
+    🌰 
+    */
+    new Vue({
+        el: '#mount-point',
+        delimiters: ['${', '}'],
+        data: {
+            message: 'hahahah'
+        },
+        template: '<h1>${message}</h1>'
+    })
+
+    // 分隔符变成了 ES6 模板字符串的风格
+</script>
+</body>
+</html>

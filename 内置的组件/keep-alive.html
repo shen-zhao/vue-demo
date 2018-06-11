@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>keep-alive</title>
+</head>
+<body>
+
+<div id="mount-point"></div>
+
+
+<!-- include 和 exclude 属性允许组件有条件地缓存。二者都可以用逗号分隔字符串、正则表达式或一个数组来表示： -->
+
+    <!-- 逗号分隔字符串 -->
+    <keep-alive include="a,b">
+        <component :is="view"></component>
+    </keep-alive>
+
+    <!-- 正则表达式 (使用 `v-bind`) -->
+    <keep-alive :include="/a|b/">
+        <component :is="view"></component>
+    </keep-alive>
+
+    <!-- 数组 (使用 `v-bind`) -->
+    <keep-alive :include="['a', 'b']">
+        <component :is="view"></component>
+    </keep-alive>
+
+<!-- 匹配首先检查组件自身的 name 选项，如果 name 选项不可用，则匹配它的局部注册名称 (父组件 components 选项的键值)。匿名组件不能被匹配。 -->
+
+<script src="https://cdn.jsdelivr.net/npm/vue"></script>
+<script>
+    /*
+    keep-alive  
+    🙂 Props：
+        include - 字符串或正则表达式。只有匹配的组件会被缓存。
+        exclude - 字符串或正则表达式。任何匹配的组件都不会被缓存。
+    🙂 用法：
+        <keep-alive> 包裹动态组件时，会缓存不活动的组件实例，而不是销毁它们。和 <transition> 相似，<keep-alive> 是一个抽象组件：它自身不会渲染一个 DOM 元素，也不会出现在父组件链中。
+        当组件在 <keep-alive> 内被切换，它的 activated 和 deactivated 这两个生命周期钩子函数将会被对应执行。
+
+            在 2.2.0 及其更高版本中，activated 和 deactivated 将会在 <keep-alive> 树内的所有嵌套组件中触发。
+        主要用于保留组件状态或避免重新渲染。
+
+        注意，<keep-alive> 是用在其一个直属的子组件被开关的情形。如果你在其中有 v-for 则不会工作。如果有上述的多个条件性的子元素，<keep-alive> 要求同时只有一个子元素被渲染。
+
+        include and exclude
+        用法见上面html
+    ⏰ 
+    🌰  例子如下
+    */
+
+    var component1 = Vue.extend({
+        data() {
+            return {
+                n: 0
+            }
+        },
+        name: 'component1',
+        template: '<h1>component1<button @click="n++">{{n}}</button></h1>'
+    });
+    var component2 = Vue.extend({
+        data() {
+            return {
+                n: 0
+            }
+        },
+        name: 'component2',
+        template: '<h2>component2<button @click="n++">{{n}}</button></h2>'
+    });
+    var component3 = Vue.extend({
+        name: 'component3',
+        template: '<h3>component3</h3>'
+    });
+
+    new Vue({
+        el: '#mount-point',
+        data: {
+            view: 'component1'
+        },
+        template: '<div>'
+            + '<button @click="cut(component1)">component1</button>'
+            + '<button @click="cut(component2)">component2</button>'
+            + '<button @click="cut(component3)">component3</button>'
+            + '<keep-alive include="component1">'
+            + '<component v-bind:is="view"></component>'
+            + '</keep-alive>'
+            + '</div>',
+        components: {
+            component1,
+            component2,
+            component3
+        },
+        methods: {
+            cut(com) {
+                this.view = com;
+            }
+        }
+    });
+   
+
+</script>
+</body>
+</html>

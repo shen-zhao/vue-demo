@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>v-model</title>
+</head>
+<body>
+<div id="exg1"></div>
+<div id="exg2"></div>
+<div id="exg3"></div>
+<div id="exg4"></div>
+
+<script src="https://cdn.jsdelivr.net/npm/vue"></script>
+<script>
+    /*
+    v-model
+    🙂 预期
+        随表单控件类型不同而不同。
+    🎈 限制
+        <input>
+        <select>
+        <textarea>
+        components
+    🙂 修饰符
+        .lazy - 取代 input 监听 change 事件
+        .number - 输入字符串转为数字
+        .trim - 输入首尾空格过滤
+    🙂 用法
+        在表单控件或者组件上创建双向绑定。细节请看下面的教程链接。  
+
+    🌰 Example:
+    */
+    //例1  input text
+
+    new Vue({
+        el: '#exg1',
+        data: {
+            value: 'hahahah',
+        },
+        template: '<h1>exg1:<input type="text" v-model="value">{{value}}</h1>'
+    });
+
+
+
+    //例2  input checkbox 多个复选框,   简写一个全选功能
+
+    new Vue({
+        el: '#exg2',
+        data: {
+            checkbox: [],
+        },
+        template: '<h1>exg2:'
+                + '<input type="checkbox" name="all" :checked="checkbox.length === 3" @change="checkAll($event.target.checked)">全选'
+                + '<input type="checkbox" value="篮球" name="check" v-model="checkbox">'
+                + '<input type="checkbox" value="足球" name="check" v-model="checkbox">'
+                + '<input type="checkbox" value="台球" name="check" v-model="checkbox">{{checkbox}}'
+                + '</h1>',
+        methods: {
+            checkAll(status) {
+                if(status) {
+                    this.checkbox = ['篮球', '足球', '台球'];
+                } else {
+                    this.checkbox = [];
+                }
+            }
+        }
+    });
+    //总结：复选框绑定绑定的数据会转化为数组, 最好初始就为数组
+
+
+    //例3  selected
+
+    new Vue({
+        el: '#exg3',
+        data: {
+            value: 'hahahah',
+        },
+        template: '<h1>exg3:'
+                +     '<select name="select" v-model="value">'
+                +         '<option value="0">数学</option>'
+                +         '<option value="1">语文</option>'
+                +         '<option value="2">英语</option>'
+                +     '</select>{{value}}'
+                + '</h1>'
+    });
+    //总结： 单选是数据为字符串，  多选时 数据转化为数组
+
+
+    //例子4  //在组件上使用v-model + model, input checked
+    Vue.component('my-checkbox', {
+        model: {
+            prop: 'checked',
+            event: 'change'
+        },
+        props: {
+            // this allows using the `value` prop for a different purpose
+            value: String,
+            // use `checked` as the prop which take the place of `value`
+            checked: {
+                type: Boolean,
+                default: false
+            }
+        },
+        template: `<input type="checkbox" :checked="checked" @change="$emit('change', $event.target.checked)">`,
+
+        // ...
+    })
+
+    new Vue({
+        el: '#exg4',
+        data: {
+            checkbox: false
+        },
+        template: '<h1>exg4组件上使用v-model:'
+                +     '<label>'
+                +         '<my-checkbox v-model="checkbox"></my-checkbox>{{checkbox}}'
+                +     '</label>'
+                + '</h1>'
+    })
+
+    /*🤔 
+        正常使用v-model一般用用于表单元素的双向绑定， 组件上用v-model也是想让组件内部的表单元素与父组件中的数据进行双向绑定
+        由于vue提倡单项数据流，这里体现的淋漓尽致，父组件中的数据通过prop传递给子组件，子组件通过绑定属性以及绑定事件，把最新的表单的值通过
+        广播传递给父组件，父组件监听到子组件中的事件，从而实现双向绑定，除输入框外，想复选框、单选框的表单实际触发事件以及用户想要获得的，比如复选框、select需要change事件，
+        实际消费数据的依据为checked为true的元素的value，这时就要用到model这个选项了，详情见🌰
+    */
+</script>
+</body>
+</html>

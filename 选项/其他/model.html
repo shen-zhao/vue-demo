@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>model</title>
+</head>
+<body>
+
+<div id="mount-point"></div>
+
+<script src="https://cdn.jsdelivr.net/npm/vue"></script>
+<script>
+    /*
+    model
+    🙂 类型  
+      { prop?: string, event?: string }
+    🎈 限制
+        这个选项只在完整构建版本中的浏览器内编译时可用。
+    🙂 详情
+        允许一个自定义组件在使用 v-model 时定制 prop 和 event。
+        默认情况下，一个组件上的 v-model 会把 value 用作 prop 且把 input 用作 event，
+        但是一些输入类型比如单选框和复选框按钮可能想使用 value prop 来达到不同的目的。
+        使用 model 选项可以回避这些情况产生的冲突。
+
+    🌰 Example:   //在组件上使用v-model + model
+    */
+
+    //例子  input checked
+    Vue.component('my-checkbox', {
+        model: {
+            prop: 'checked',
+            event: 'change'
+        },
+        props: {
+            // this allows using the `value` prop for a different purpose
+            value: String,
+            // use `checked` as the prop which take the place of `value`
+            checked: {
+                type: Boolean,
+                default: false
+            }
+        },
+        template: `<input type="checkbox" :checked="checked" @change="$emit('change', $event.target.checked)">`,
+
+        // ...
+    })
+
+    new Vue({
+        el: '#mount-point',
+        data: {
+            foo: false
+        },
+        template: '<h1>'
+                +     '<label>'
+                +         '<my-checkbox v-model="foo"></my-checkbox>{{foo}}'
+                +     '</label>'
+                + '</h1>'
+    })
+
+    /*🤔 
+        正常使用v-model一般用用于表单元素的双向绑定， 组件上用v-model也是想让组件内部的表单元素与父组件中的数据进行双向绑定
+        由于vue提倡单项数据流，这里体现的淋漓尽致，父组件中的数据通过prop传递给子组件，子组件通过绑定属性以及绑定事件，把最新的表单的值通过
+        广播传递给父组件，从而实现双向绑定，除输入框外，想复选框、单选框的表单实际触发事件以及用户想要获得的，比如复选框需要change事件，
+        实际消费数据的依据为checked为true的元素的value，这时就要用到model这个选项了，详情见🌰
+    */
+</script>
+</body>
+</html>
