@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>propsData</title>
+</head>
+<body>
+
+<div id="mount-point"></div>
+
+<script src="https://cdn.jsdelivr.net/npm/vue"></script>
+<script>
+    /*
+    🙂 类型  
+       { [key: string]: any }
+    ⏰ 限制
+       只用于 new 创建的实例中。
+    🙂 详细
+        创建实例时传递 props。主要作用是方便测试。
+    🌰 
+    */
+    var Comp = Vue.extend({
+        props: ['msg'],
+        template: '<div>{{ msg }}</div>'
+    })
+
+    var vm = new Comp({
+        propsData: {
+            msg: 'hello'
+        }
+    })
+
+</script>
+</body>
+</html>

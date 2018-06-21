@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>methods</title>
+</head>
+<body>
+
+<div id="mount-point"></div>
+
+<script src="https://cdn.jsdelivr.net/npm/vue"></script>
+<script>
+    /*
+    🙂 类型  
+       { [key: string]: Function }
+    🙂 详细
+        methods 将被混入到 Vue 实例中。
+        可以直接通过 VM 实例访问这些方法，或者在指令表达式中使用。
+        方法中的 this 自动绑定为 Vue 实例。
+
+    🎈  注意，不应该使用“箭头函数“来定义 method 函数 (例如 plus: () => this.a++)。
+        理由是箭头函数绑定了父级作用域的上下文，所以 this 将不会按照期望指向 Vue 实例，this.a 将是 undefined。
+    🌰 
+    */
+    var vm = new Vue({
+        data: { a: 1 },
+        methods: {
+            plus: function () {
+                this.a++
+            }
+        }
+    })
+    vm.plus()
+    vm.a // 2
+
+</script>
+</body>
+</html>
