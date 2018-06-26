@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>v-show</title>
+</head>
+<body>
+    
+<div id="mount-point"></div>
+
+<script src="https://cdn.jsdelivr.net/npm/vue"></script>
+<script>
+    /*
+    v-show
+    🙂 预期
+        any
+    🙂 详情
+        根据表达式之真假值，切换元素的 display CSS 属性。
+
+        当条件变化时该指令触发过渡效果。
+    ⏰  注意！
+        v-show 不支持 <template> 元素，也不支持 v-else。   //不支持v-else没想太明白
+    🌰 Example:
+        <h1 v-show="ok">Hello!</h1>
+    */
+
+    new Vue({
+        el: '#mount-point',
+        data: {
+            show: false,
+            have: false,
+        },
+        template: '<ul>' +
+            '<li v-if="have" v-show="show">哈哈哈我是第一</li>' +
+            '<li v-else v-show="show">哈哈哈我是第二</li>' +
+            '</ul>'
+    });
+    
+</script>
+</body>
+</html>

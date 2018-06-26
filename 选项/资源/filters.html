@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>filters</title>
+</head>
+<body>
+
+<div id="mount-point"></div>
+
+<script src="https://cdn.jsdelivr.net/npm/vue"></script>
+<script>
+    /*
+    filters
+    🙂 类型  
+      {Object}
+    🙂 详情
+        详情见全局API: Vue.filter
+
+    🌰 
+    */
+
+    //如果想注册局部过滤器，组件中也接受一个 filters 的选项：
+    new Vue({
+        filters: {
+            capitalize: function (value) {
+                if (!value) return ''
+                value = value.toString()
+                return value.charAt(0).toUpperCase() + value.slice(1)
+            }
+        }
+    });
+
+
+    //{{ message | capitalize }}
+</script>
+</body>
+</html>

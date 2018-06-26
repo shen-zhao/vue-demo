@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>v-bind</title>
+</head>
+<body>
+    
+<div id="mount-point"></div>
+
+<script src="https://cdn.jsdelivr.net/npm/vue"></script>
+<script>
+    /*
+    v-bind
+    🙂 缩写 :
+    🙂 预期
+        any (with argument) | Object (without argument)
+    🙂 参数
+        attrOrProp (optional)
+    🙂 修饰符
+        .prop - 被用于绑定 DOM 属性 (property)。(差别在哪里？)
+        .camel - (2.1.0+) 将 kebab-case 特性名转换为 camelCase. (从 2.1.0 开始支持)
+        .sync (2.3.0+) 语法糖，会扩展成一个更新父组件绑定值的 v-on 侦听器。
+    🙂 详情
+        动态地绑定一个或多个特性，或一个组件 prop 到表达式。
+
+        在绑定 class 或 style 特性时，支持其它类型的值，如数组或对象。可以通过下面的教程链接查看详情。
+
+        在绑定 prop 时，prop 必须在子组件中声明。可以用修饰符指定不同的绑定类型。
+
+        没有参数时，可以绑定到一个包含键值对的对象。注意此时 class 和 style 绑定不支持数组和对象。
+    ⏰  注意！
+        1.在网站上动态渲染任意 HTML 是非常危险的，因为容易导致 XSS 攻击。
+            只在可信内容上使用 v-html，永不用在用户提交的内容上。
+        2.在单文件组件里，scoped 的样式不会应用在 v-html 内部，因为那部分 HTML 没有被 Vue 的模板编译器处理。
+            如果你希望针对 v-html 的内容设置带作用域的 CSS，你可以替换为 CSS Modules 或用一个额外的全局 <style> 元素手动设置类似 BEM 的作用域策略。
+    🌰 Example:
+        <!-- 绑定一个属性 -->
+        <img v-bind:src="imageSrc">
+
+        <!-- 缩写 -->
+        <img :src="imageSrc">
+
+        <!-- 内联字符串拼接 -->
+        <img :src="'/path/to/images/' + fileName">
+
+        <!-- class 绑定 -->
+        <div :class="{ red: isRed }"></div>
+        <div :class="[classA, classB]"></div>
+        <div :class="[classA, { classB: isB, classC: isC }]">
+
+        <!-- style 绑定 -->
+        <div :style="{ fontSize: size + 'px' }"></div>
+        <div :style="[styleObjectA, styleObjectB]"></div>
+
+        <!-- 绑定一个有属性的对象 -->
+        <div v-bind="{ id: someProp, 'other-attr': otherProp }"></div>
+
+        <!-- 通过 prop 修饰符绑定 DOM 属性 -->
+        <div v-bind:text-content.prop="text"></div>
+
+        <!-- prop 绑定。“prop”必须在 my-component 中声明。-->
+        <my-component :prop="someThing"></my-component>
+
+        <!-- 通过 $props 将父组件的 props 一起传给子组件 -->
+        <child-component v-bind="$props"></child-component>
+
+        <!-- XLink -->
+        <svg><a :xlink:special="foo"></a></svg>
+
+    .camel 修饰符允许在使用 DOM 模板时将 v-bind 属性名称驼峰化，例如 SVG 的 viewBox 属性：
+
+    <svg :view-box.camel="viewBox"></svg>
+
+    在使用字符串模板或通过 vue-loader/vueify 编译时，无需使用 .camel。
+    */
+    
+    /*🤔 
+        html结构原样输出
+    */
+</script>
+</body>
+</html>

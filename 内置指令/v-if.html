@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>v-if</title>
+</head>
+<body>
+    
+<div id="mount-point"></div>
+
+<script src="https://cdn.jsdelivr.net/npm/vue"></script>
+<script>
+    /*
+    v-if
+    🙂 预期
+        any
+    🙂 详情
+        根据表达式的值的真假条件渲染元素。
+        在切换时元素及它的数据绑定 / 组件被销毁并重建。
+        如果元素是 <template> ，将提出它的内容作为条件块。
+
+        当条件变化时该指令触发过渡效果。
+    ⏰  注意！
+        当和 v-if 一起使用时，v-for 的优先级比 v-if 更高。详见列表渲染教程https://cn.vuejs.org/v2/guide/list.html#v-for-with-v-if
+    🌰 Example:
+        <h1 v-if="ok">Hello!</h1>
+    */
+
+    new Vue({
+        el: '#mount-point',
+        data: {
+            show: false,
+            have: false,
+        },
+        template: '<ul>' +
+            '<li v-if="have" v-show="show">哈哈哈我是第一</li>' +
+            '<li v-else v-show="show">哈哈哈我是第二</li>' +
+            '</ul>'
+    });
+    
+</script>
+</body>
+</html>
