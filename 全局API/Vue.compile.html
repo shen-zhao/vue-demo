@@ -13,11 +13,11 @@
 <script src="https://cdn.jsdelivr.net/npm/vue"></script>
 <script>
     /*
-    Vue.compile(template)  把template字符串渲染(编译)成虚拟DOM, 供给render选项渲染
+    Vue.compile(template)  把template字符串渲染(编译)成jsx, 供给render选项渲染
     🙂 参数  
       {string} template
     🙂 返回
-      返回一个对象，{render, staticRenderFns},把template字符串渲染(编译)成虚拟DOM树, 把所有的逻辑、数据绑定、表达式等编译成可执行的js字符串，并通过new Function返回一个render函数和静态渲染函数
+      返回一个对象，{render, staticRenderFns},把template字符串渲染(编译)成jsx, 把所有的逻辑、数据绑定、表达式等编译成可执行的js字符串，并通过new Function返回一个render函数和静态渲染函数
     🙂 用法
         在 render 函数中编译模板字符串。只在独立构建时有效
         var res = Vue.compile('<div><span>{{ msg }}</span></div>')
